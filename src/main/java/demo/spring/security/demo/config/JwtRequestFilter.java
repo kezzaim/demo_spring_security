@@ -36,7 +36,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         String username = null;
         String jwtToken = null;
-        // JWT Token is in the form "Bearer token". Remove Bearer word and get
         // only the Token
         if (requestTokenHeader != null) {
             jwtToken = requestTokenHeader;
@@ -66,6 +65,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             try {
                 if (jwtTokenUtil.validateToken(jwtToken, user)) {
 
+                    /**
+                     * src/main/resources/static/spring_security_username_password_authentication_token.png
+                     * https://medium.com/geekculture/spring-security-authentication-process-authentication-flow-behind-the-scenes-d56da63f04fa#:~:text=For%20example%2C%20UsernamePasswordAuthenticationToken%20is%20an,Other%20examples%20include%20OpenIDAuthenticationToken%20%2C%20RememberMeAuthenticationToken%20.
+                     *
+                     * UsernamePasswordAuthenticationToken is an implementation of Authentication interface.
+                     * This class specifies that the authentication mechanism must be via username-password.
+                     */
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     // After setting the Authentication in the context, we specify
