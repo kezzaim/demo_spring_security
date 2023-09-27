@@ -11,7 +11,7 @@
     <groupId>demo.spring.security</groupId>
     <artifactId>demo_ss</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>demo_spring_security</name>
     <description>Demo project for Spring Boot ans security</description>
     <properties>
@@ -44,7 +44,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-<!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>log4j</groupId>

@@ -34,6 +34,14 @@ public class User implements UserDetails {
     )
     private Set<Role> roles;
 
+    @Transient
+    private String token;
+
+    public User(String username, String password) {
+        this.username= username;
+        this.password = password;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles;

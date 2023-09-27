@@ -2,6 +2,7 @@ package demo.spring.security.demo.controller;
 
 import demo.spring.security.demo.model.User;
 import demo.spring.security.demo.config.JwtTokenUtil;
+import demo.spring.security.demo.model.UserDTO;
 import demo.spring.security.demo.services.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +26,16 @@ public class UserLoginController {
     private JwtTokenUtil jwtTokenUtil;
 
     @PostMapping("/login")
-    public String loginUser(@RequestBody User user) {
+    public User loginUser(@RequestBody UserDTO userDTO) {
         log.info("LogInControllerImpl ---login user ");
+        User user = new User(userDTO.getUsername(),userDTO.getPassword());
         log.info("users : " + user.getUsername());
         if (user.getUsername().isEmpty())
             return null;
         user = this.userService.loadUserByUsername(user.getUsername());
         log.info("after --- users : " + user.toString());
-        return jwtTokenUtil.generateToken(user);
+        user.setToken(jwtTokenUtil.generateToken(user));
+        return user;
     }
 
     @GetMapping(value = "/logout")
